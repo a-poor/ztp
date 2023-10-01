@@ -1,10 +1,13 @@
 use std::{path::Path, sync::Arc};
-use swc::{self, config::Options};
+use swc::config::Options;
 use swc_common::{
     errors::{ColorConfig, Handler},
     SourceMap,
     GLOBALS,
 };
+
+const SAMPLE_CODE_SRC: &str = "sample.in.js";
+const SAMPLE_CODE_DST: &str = "sample.out.js";
 
 fn main() {
     let cm = Arc::<SourceMap>::default();
@@ -17,7 +20,7 @@ fn main() {
     let compiler = swc::Compiler::new(cm.clone());
 
     let fm = cm
-        .load_file(Path::new("sample.js"))
+        .load_file(Path::new(SAMPLE_CODE_SRC))
         .expect("failed to load file");
 
     let res = GLOBALS.set(&Default::default(), || {
@@ -31,5 +34,5 @@ fn main() {
     })
     .expect("failed to process file");
 
-    print!("{}", res.code);
+    std::fs::write(SAMPLE_CODE_DST, res.code).expect("failed to write file");
 }
