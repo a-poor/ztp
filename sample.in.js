@@ -12,6 +12,7 @@ function greet() {
  * @returns {Promise<string>}
  */
 function doSomethingRemotely(name, count) {
+    'use ztp';
     return new Promise((resolve) => {
         setTimeout(() => {
             resolve(`Hello, ${name}! You have ${count} new messages.`);

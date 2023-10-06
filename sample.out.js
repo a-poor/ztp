@@ -8,8 +8,9 @@ function greet() {
  * @param {string} name 
  * @param {number} count 
  * @returns {Promise<string>}
- */ function doSomethingRemotely(name: any, count: any) {
-    return new Promise(function(resolve: any) {
+ */ function doSomethingRemotely(name, count) {
+    "use ztp";
+    return new Promise(function(resolve) {
         setTimeout(function() {
             resolve("Hello, ".concat(name, "! You have ").concat(count, " new messages."));
         }, 1000);
