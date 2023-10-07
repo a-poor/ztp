@@ -96,7 +96,16 @@ impl VisitMut for ZtpVisitor {
                     Expr::Lit(lit) => {
                         match lit {
                             Lit::Str(str_lit) => {
+
+                                // Check if the first line of the function is the string "use ztp"...
                                 if str_lit.raw == Some(Atom::from("'use ztp'")) || str_lit.raw == Some(Atom::from("\"use ztp\"")) {
+                                    // TODO - Move the body out of the function so it can be executed in a separate context...
+                                    //
+                                    // NOTES: 
+                                    // - Will need to track relevant exports and variables that need to be passed in
+                                    // - The exported function can't modify the variables (at least for now)
+
+                                    // Replace the body with a remote call...
                                     node.function.body = Some(make_ztp_func_body(&node_copy.ident.sym.to_string(), params));
                                 }
                             },
