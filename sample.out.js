@@ -9,11 +9,12 @@ function greet() {
  * @param {number} count 
  * @returns {Promise<string>}
  */ function doSomethingRemotely(name, count) {
-    "use ztp";
-    return new Promise(function(resolve) {
-        setTimeout(function() {
-            resolve("Hello, ".concat(name, "! You have ").concat(count, " new messages."));
-        }, 1000);
+    __TO_ZTP_SANDBOX({
+        name: "doSomethingRemotely",
+        params: [
+            name,
+            count
+        ]
     });
 }
 greet();
